@@ -12,7 +12,7 @@ from Utils import get_intended_text
 from . import items, locations, regions, rules, web_world, Tasks, SpeciesUtils
 from . import options as equilinox_options  # rename due to a name conflict with World.options
 
-
+# Can probably change back to World
 class EquilinoxWorld(CachedRuleBuilderWorld):
     """
     Equilinox is a relaxing nature simulation game in
@@ -25,7 +25,7 @@ class EquilinoxWorld(CachedRuleBuilderWorld):
     web = web_world.EquilinoxWebWorld()
 
     options_dataclass = equilinox_options.EquilinoxOptions
-    options: equilinox_options.EquilinoxOptions  # Common mistake: This has to be a colon (:), not an equals sign (=).
+    options: equilinox_options.EquilinoxOptions
 
     SpeciesUtils.all_species = SpeciesUtils.get_species()
 
@@ -37,6 +37,7 @@ class EquilinoxWorld(CachedRuleBuilderWorld):
 
     origin_region_name = "Menu"
 
+    # Biome Spreaders - used mostly to simplify some logic
     item_name_groups = {
         "Grassland": {"Wild Mint", "Grass Tuft", "Daisy", "Tulip", "Wheat", },
         "Forest": {"Rosemary", "Tall Tree", "Cedar Tree", "Potato Plant", "Sage", "Heather", "Fern", "Acer Tree", "Juniper Tree", },
