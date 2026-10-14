@@ -70,9 +70,15 @@ def create_regular_locations(world: EquilinoxWorld) -> None:
     locations_to_include = []
 
     task_locations = [name for name, id in all_locs.items() if 10000 < id < 20000]
-    #if world.options.goal == "Completionist": task_locations.remove("Complete Task 'Completionist'")
+    if world.options.goal_selection == 0: task_locations.remove("Complete Task 'Completionist'")
+
     evolution_locations = [name for name, id in all_locs.items() if 20000 < id < 30000]
+    if world.options.goal_selection == 1: evolution_locations.remove("Evolve Camel")
+
     size_locations = [name for name, id in all_locs.items() if 310000000 < id < 320000000]
+    if world.options.goal_selection == 1:
+        size_locations.remove("Grow a Big Camel (Size 1.10)")
+        size_locations.remove("Grow a Huge Camel (Size 1.20)")
 
 
 

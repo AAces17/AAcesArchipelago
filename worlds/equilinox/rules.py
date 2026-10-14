@@ -22,16 +22,22 @@ def set_all_rules(world: EquilinoxWorld) -> None:
 
 def set_all_location_rules(world: EquilinoxWorld) -> None:
     set_evolution_rules(world)
-    set_task_rules(world)
+    completionist_rule = set_task_rules(world)
     set_trait_rules(world)
 
     victory = world.get_location("Game finished")
-    world.set_rule(victory, Has("Camel") & Has("Dolphin"))
+    if world.options.goal_selection == 0:
+        #Completionist
+        world.set_rule(victory, completionist_rule)
+    elif world.options.goal_selection == 1:
+        #Evolve a camel
+        world.set_rule(victory, Has("Camel"))
     return
 
 def set_trait_rules(world: EquilinoxWorld) -> None:
     for species in SpeciesUtils.all_species:
         if species.name not in SpeciesUtils.rocks_and_stones:
+            if species.name == "Camel" and world.options.goal_selection == 1: continue
             if world.options.size_checks.value == 1:
                 sizeLoc1 = world.get_location(f"Grow a Big {species.name} (Size 1.10)")
                 sizeLoc2 = world.get_location(f"Grow a Huge {species.name} (Size 1.20)")
@@ -56,6 +62,7 @@ def set_evolution_rules(world: EquilinoxWorld) -> None:
     for species in SpeciesUtils.all_species:
         event_loc = world.get_location(f"{species.name} Unlock")
         if not species.is_base_species():
+            if species.name == "Camel" and world.options.goal_selection == 1: continue
             evo_species.append(species)
         world.set_rule(event_loc, species_access_rules[species.name])
 
@@ -64,7 +71,7 @@ def set_evolution_rules(world: EquilinoxWorld) -> None:
         world.set_rule(loc, Has(species.name) & CanAffordDP(species.cost * 2))
 
 
-def set_task_rules(world: EquilinoxWorld) -> None:
+def set_task_rules(world: EquilinoxWorld) -> Rule:
     tasks = Tasks.all_tasks
     completionist_rule = True_()
     for task in tasks:
@@ -115,8 +122,10 @@ def set_task_rules(world: EquilinoxWorld) -> None:
 
         world.set_rule(task_loc, rule)
 
-    completionist_loc = world.get_location(f"Complete Task 'Completionist'")
-    world.set_rule(completionist_loc, completionist_rule)
+    if world.options.goal_selection != 0:
+        completionist_loc = world.get_location(f"Complete Task 'Completionist'")
+        world.set_rule(completionist_loc, completionist_rule)
+    return completionist_rule
 
 
 

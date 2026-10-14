@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
-from Options import OptionGroup, PerGameCommonOptions, Range, Toggle
+from Options import OptionGroup, PerGameCommonOptions, Range, Toggle, Choice
+
 
 class TasksRewardDP(Toggle):
     """
@@ -50,6 +51,15 @@ class SizeChecks(Toggle):
     display_name = "Include Size Checks"
     default = True
 
+class GoalSelection(Choice):
+    """
+    Completion condition
+    """
+    display_name = "Goal"
+    option_completionist = 0
+    option_evolve_camel = 1
+    default = 0
+
 @dataclass
 class EquilinoxOptions(PerGameCommonOptions):
     tasks_reward_dp: TasksRewardDP
@@ -57,8 +67,13 @@ class EquilinoxOptions(PerGameCommonOptions):
     itempool_dp: DPInItempool
     size_checks: SizeChecks
     free_evolution: FreeEvolution
+    goal_selection: GoalSelection
 
 option_groups = [
+    OptionGroup(
+      "Goal Options",
+        [GoalSelection]
+    ),
     OptionGroup(
         "Gameplay Options",
         [FreeEvolution]
@@ -79,6 +94,7 @@ option_presets = {
         "starting_dp": 5000,
         "itempool_dp": 150000,
         "size_checks": True,
-        "free_evolution": True
+        "free_evolution": True,
+        "goal_selection": 0
     }
 }
