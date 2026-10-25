@@ -54,21 +54,17 @@ def set_trait_rules(world: EquilinoxWorld) -> None:
                 if species.eats != "":
                     extra_rule = extra_rule & CanGetAtLeastOneDiet(species)
 
-                world.set_rule(sizeLoc1, Has(species.name) & CanAffordDP(species.cost + 25000) & extra_rule)
-                world.set_rule(sizeLoc2, Has(species.name) & CanAffordDP(species.cost + 50000) & extra_rule)
+                world.set_rule(sizeLoc1, Has(species.name) & CanAffordDP(species.cost + 20000 * species.evolution_stage) & extra_rule)
+                world.set_rule(sizeLoc2, Has(species.name) & CanAffordDP(species.cost + 40000 * species.evolution_stage) & extra_rule)
 
 def set_evolution_rules(world: EquilinoxWorld) -> None:
-    evo_species = []
     for species in SpeciesUtils.all_species:
         event_loc = world.get_location(f"{species.name} Unlock")
+        world.set_rule(event_loc, species_access_rules[species.name])
         if not species.is_base_species():
             if species.name == "Camel" and world.options.goal_selection == 1: continue
-            evo_species.append(species)
-        world.set_rule(event_loc, species_access_rules[species.name])
-
-    for species in evo_species:
-        loc = world.get_location(f"Evolve {species.name}")
-        world.set_rule(loc, Has(species.name) & CanAffordDP(species.cost * 2))
+            loc = world.get_location(f"Evolve {species.name}")
+            world.set_rule(loc, Has(species.name) & CanAffordDP(species.cost * species.evolution_stage))
 
 
 def set_task_rules(world: EquilinoxWorld) -> Rule:
