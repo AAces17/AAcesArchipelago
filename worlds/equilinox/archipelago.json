@@ -1,6 +1,8 @@
 {
-	"game": "Equilinox",
-	"minimum_ap_version": "0.6.7",
-	"world_version": "0.0.1",
-	"authors": ["AAces"]
+  "game": "Equilinox",
+  "minimum_ap_version": "0.6.7",
+  "world_version": "0.2.0",
+  "authors": ["AAces"],
+  "compatible_version": 7,
+  "version": 7
 }
