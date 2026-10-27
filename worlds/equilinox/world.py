@@ -3,7 +3,6 @@ from typing import Any
 
 from BaseClasses import CollectionState
 from NetUtils import JSONMessagePart
-from rule_builder.cached_world import CachedRuleBuilderWorld
 from .rules import _can_afford_dp
 # Imports of base Archipelago modules must be absolute.
 from worlds.AutoWorld import World
@@ -12,8 +11,8 @@ from Utils import get_intended_text
 from . import items, locations, regions, rules, web_world, Tasks, SpeciesUtils
 from . import options as equilinox_options  # rename due to a name conflict with World.options
 
-# Can probably change back to World
-class EquilinoxWorld(CachedRuleBuilderWorld):
+
+class EquilinoxWorld(World):
     """
     Equilinox is a relaxing nature simulation game in
     which you can create and nurture your own ecosystems.
