@@ -49,10 +49,10 @@ def set_item_names_to_id():
     DEFAULT_ITEM_CLASSIFICATIONS["100 dp"] = ItemClassification.filler
     DEFAULT_ITEM_CLASSIFICATIONS["500 dp"] = ItemClassification.filler
 
-    DEFAULT_ITEM_CLASSIFICATIONS["1,000 dp"] = ItemClassification.progression | ItemClassification.filler
-    DEFAULT_ITEM_CLASSIFICATIONS["2,500 dp"] = ItemClassification.progression | ItemClassification.filler
-    DEFAULT_ITEM_CLASSIFICATIONS["5,000 dp"] = ItemClassification.progression | ItemClassification.filler
-    DEFAULT_ITEM_CLASSIFICATIONS["7,500 dp"] = ItemClassification.progression | ItemClassification.filler
+    DEFAULT_ITEM_CLASSIFICATIONS["1,000 dp"] = ItemClassification.filler
+    DEFAULT_ITEM_CLASSIFICATIONS["2,500 dp"] = ItemClassification.filler
+    DEFAULT_ITEM_CLASSIFICATIONS["5,000 dp"] = ItemClassification.filler | ItemClassification.useful
+    DEFAULT_ITEM_CLASSIFICATIONS["7,500 dp"] = ItemClassification.filler | ItemClassification.useful
 
     DEFAULT_ITEM_CLASSIFICATIONS["10,000 dp"] = ItemClassification.progression
     DEFAULT_ITEM_CLASSIFICATIONS["25,000 dp"] = ItemClassification.progression
@@ -60,6 +60,9 @@ def set_item_names_to_id():
     DEFAULT_ITEM_CLASSIFICATIONS["75,000 dp"] = ItemClassification.progression_skip_balancing | ItemClassification.useful
 
     DEFAULT_ITEM_CLASSIFICATIONS["100,000 dp"] = ItemClassification.progression_skip_balancing | ItemClassification.useful
+
+    ITEM_NAME_TO_ID["Progressive DP/Min Bonus"] = 70001
+    DEFAULT_ITEM_CLASSIFICATIONS["Progressive DP/Min Bonus"] = ItemClassification.progression | ItemClassification.useful
 
     DEFAULT_ITEM_CLASSIFICATIONS["Filler"] = 90001
     DEFAULT_ITEM_CLASSIFICATIONS["Filler"] = ItemClassification.filler
@@ -132,6 +135,9 @@ def create_all_items(world: EquilinoxWorld) -> None:
     if not world.options.tasks_reward_dp:
         for task in Tasks.all_tasks:
             item_pool.append(get_nearest_money_item(world, task.cash_reward))
+
+    for _ in range(world.options.dp_per_min_bonus_count.value):
+        item_pool.append(world.create_item("Progressive DP/Min Bonus"))
 
     dp_in_pool = world.options.itempool_dp.value
     dp_to_add = []

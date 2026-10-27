@@ -74,7 +74,23 @@ class EquilinoxWorld(World):
         return items.get_random_filler_item_name(self)
 
     def fill_slot_data(self) -> Mapping[str, Any]:
-        return self.options.as_dict("tasks_reward_dp", "starting_dp", "itempool_dp", "size_checks", "free_evolution", "goal_selection")
+        slot_data = {
+            "ap_world_version": self.world_version.as_simple_string()
+        }
+
+        slot_data.update(self.options.as_dict(
+            "tasks_reward_dp",
+            "starting_dp",
+            "itempool_dp",
+            "size_checks",
+            "free_evolution",
+            "goal_selection",
+            "dp_per_min_bonus_count",
+            "evo_goal_species",
+            "evo_goal_count"
+        ))
+
+        return slot_data
 
     @staticmethod
     def interpret_slot_data(slot_data: dict[str, Any]) -> Any:

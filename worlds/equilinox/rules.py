@@ -29,9 +29,17 @@ def set_all_location_rules(world: EquilinoxWorld) -> None:
     if world.options.goal_selection.value == 0:
         #Completionist
         world.set_rule(victory, completionist_rule)
-    elif world.options.goal_selection == 1:
-        #Evolve a camel
-        world.set_rule(victory, Has("Camel"))
+    elif world.options.goal_selection.value == 1:
+        #Evolve from a set of species
+        required_species = world.options.evo_goal_species.value
+        required_count = world.options.evo_goal_count.value
+
+        if required_count == 0 or required_count > len(required_species):
+            required_count = len(required_species)
+
+        print(f"Needs {required_count} of the following to goal: \n\t{required_species}")
+
+        world.set_rule(victory, HasFromListUnique(*required_species, count=required_count))
     return
 
 def set_trait_rules(world: EquilinoxWorld) -> None:
