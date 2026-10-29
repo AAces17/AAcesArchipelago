@@ -261,7 +261,7 @@ species_access_rules: dict[str, Rule] = {
         & HasAny(
             "Brown Stones",
             "Stones",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Heather":
         Has("Rosemary")
         & HasAny(
@@ -279,15 +279,15 @@ species_access_rules: dict[str, Rule] = {
             "Brown Rock",
             "Stones",
             "Brown Stones",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Elm Tree":
         Has("Oak Tree")
         & HasAny(
             "Oregano",
             "Buttercup",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Red Maple Tree":
-        Has("Birch Tree") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        Has("Birch Tree") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Sycamore Tree":
         Has("Oak Tree")
         & HasAny(
@@ -302,31 +302,31 @@ species_access_rules: dict[str, Rule] = {
             "Oregano",
             "Rosemary",
             "Wild Mint",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Juniper Tree":
-        Has("Tall Tree") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        Has("Tall Tree") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Apple Tree":
         Has("Oak Tree")
         & HasAny(
             "Heather",
             "Sage",
             "Rosemary",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Fern":
-        Has("Rosemary") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        Has("Rosemary") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Pansies":
         Has("Daisy")
         & HasAny(
             "Heather",
             "Sage",
             "Rosemary",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Tropical Mushroom":
         Has("Button Mushroom")
         & HasAny(
             "Tropical Flower",
             "Flowery Grass",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Cedar Tree":
         Has("Tall Tree") &
         Has("Rosemary")
@@ -345,7 +345,7 @@ species_access_rules: dict[str, Rule] = {
             "Brown Rock",
             "Stones",
             "Brown Stones",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Wobbly Tree":
         Has("Birch Tree") &
         Has("Sheep")
@@ -360,7 +360,7 @@ species_access_rules: dict[str, Rule] = {
             "Daisy",
             "Wild Mint",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Spruce Tree":
         Has("Birch Tree") &
         Has("Fir Tree") &
@@ -369,7 +369,7 @@ species_access_rules: dict[str, Rule] = {
             "Bluebell",
             "Holly Bush",
             "Fir Tree",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Small Cactus":
         Has("Yucca")
         & HasAny(
@@ -382,16 +382,16 @@ species_access_rules: dict[str, Rule] = {
         Has("Button Mushroom")
         & HasAny(
             "Jungle Grass",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Jungle Flower":
         Has("Jungle Grass") &
         Has("Vine Tree")
         & HasAny(
             "Stones",
             "Brown Stones",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Prickly Pear":
-        Has("Yucca") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        Has("Yucca") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Red Mushroom":
         Has("Button Mushroom")
         & HasAny(
@@ -417,7 +417,7 @@ species_access_rules: dict[str, Rule] = {
             "Buttercup",
             "Sycamore Tree",
             count=2
-            ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+            ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Tropical Flower":
         Has("Lizard") &
         Has("Flowery Grass"),
@@ -425,7 +425,7 @@ species_access_rules: dict[str, Rule] = {
         Has("Jungle Grass") &
         Has("Jungle Rocks"),
     "Leafy Plant":
-        Has("Flowery Grass") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        Has("Flowery Grass") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Primrose":
         Has("Lush Grass")
         & HasAny(
@@ -433,7 +433,7 @@ species_access_rules: dict[str, Rule] = {
             "Brown Rock",
             "Stones",
             "Brown Stones",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Bulrush":
         Has("Swamp Grass")
         & HasAny(
@@ -441,13 +441,13 @@ species_access_rules: dict[str, Rule] = {
             "Brown Rock",
             "Stones",
             "Brown Stones",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Slimy Tree":
         Has("Willow Tree")
         & HasAny(
             "Rock",
             "Brown Rock",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Red Tree":
         Has("Pink Tree") &
         Has("Lush Grass") &
@@ -466,13 +466,13 @@ species_access_rules: dict[str, Rule] = {
         & HasAny(
             "Lush Grass",
             "Primrose",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Ficus Tree":
         Has("Vine Tree") &
         Has("Button Mushroom")
         & HasAny(
             "Jungle Grass",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Pagoda Tree":
         Has("Birch Tree") &
         Has("Daisy")
@@ -489,7 +489,7 @@ species_access_rules: dict[str, Rule] = {
             "Marigolds",
             "Elm Tree",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Flower Tree":
         Has("Lizard") &
         Has("Palm Tree") &
@@ -497,11 +497,11 @@ species_access_rules: dict[str, Rule] = {
         & HasAny(
             "Tropical Flower",
             "Flowery Grass",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Banana Tree":
-        Has("Palm Tree") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        Has("Palm Tree") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Umbrella Tree":
-        Has("Joshua Tree") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        Has("Joshua Tree") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Redfish":
         Has("Seaweed") &
         Has("Trout")
@@ -613,7 +613,7 @@ species_access_rules: dict[str, Rule] = {
         & HasAny(
             "Oregano",
             "Buttercup",
-        ) & HasAny("Sheep", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Squirrel":
         Has("Oak Tree") &
         Has("Daisy") &
@@ -715,7 +715,7 @@ species_access_rules: dict[str, Rule] = {
         ),
     "Wolf":
         Has("Snow Rocks") &
-        Has("Fox") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        Has("Fox") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Bluebell":
         Has("Birch Tree") &
         Has("Daisy")
@@ -723,7 +723,7 @@ species_access_rules: dict[str, Rule] = {
             "Fir Tree",
             "Spruce Tree",
             "Holly Bush",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Barley":
         Has("Tall Tree") &
         Has("Rosemary")
@@ -767,14 +767,14 @@ species_access_rules: dict[str, Rule] = {
             "Buttercup",
             "Sycamore Tree",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Lily":
         Has("Daisy")
         & HasAny(
             "Heather",
             "Sage",
             "Rosemary",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Snap Dragon":
         Has("Guinea Pig") &
         Has("Daisy"),
@@ -820,7 +820,7 @@ species_access_rules: dict[str, Rule] = {
             "Buttercup",
             "Sycamore Tree",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Progressive DP/Min Bonus"),
     "Potato Plant":
         Has("Sheep") &
         Has("Tall Tree") &
@@ -856,7 +856,7 @@ species_access_rules: dict[str, Rule] = {
             "Juniper Tree",
             "Acer Tree",
             count=2
-        ) & HasAny("Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Rose":
         Has("Birch Tree") &
         Has("Daisy")
@@ -865,7 +865,8 @@ species_access_rules: dict[str, Rule] = {
             "Buttercup",
         ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
     "Holly Bush":
-        Has("Tomato Plant") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        Has("Tomato Plant") &
+        HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Tall Mushroom":
         Has("Button Mushroom")
         & HasAny(
@@ -876,7 +877,7 @@ species_access_rules: dict[str, Rule] = {
             "Slimy Tree",
             "Willow Tree",
             "Swamp Grass",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Medium Cactus":
         Has("Yucca") &
         Has("Joshua Tree")
@@ -885,7 +886,7 @@ species_access_rules: dict[str, Rule] = {
             "Rock",
             "Stones",
             "Brown Rock",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Nut Tree":
         Has("Guinea Pig") &
         Has("Oak Tree") &
@@ -908,7 +909,7 @@ species_access_rules: dict[str, Rule] = {
             "Buttercup",
             "Sycamore Tree",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Progressive DP/Min Bonus"),
     "Acer Tree":
         Has("Sheep") &
         Has("Tall Tree") &
@@ -928,7 +929,7 @@ species_access_rules: dict[str, Rule] = {
             "Rock",
             "Stones",
             "Brown Rock",
-        ) & HasAny("Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Ash Tree":
         Has("Oak Tree")
         & HasAny(
@@ -952,7 +953,7 @@ species_access_rules: dict[str, Rule] = {
             "Buttercup",
             "Sycamore Tree",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Bromeliad":
         Has("Lizard") &
         Has("Flowery Grass") &
@@ -974,7 +975,7 @@ species_access_rules: dict[str, Rule] = {
             "Buttercup",
             "Sycamore Tree",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Swamp Flower":
         Has("Lizard") &
         Has("Swamp Grass")
@@ -994,7 +995,7 @@ species_access_rules: dict[str, Rule] = {
             "Ficus Tree",
             "Jungle Flower",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Bamboo":
         Has("Button Mushroom") &
         Has("Lush Grass")
@@ -1012,13 +1013,15 @@ species_access_rules: dict[str, Rule] = {
             "Slimy Tree",
             "Willow Tree",
             "Swamp Grass",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Healbloom":
         Has("Lizard") &
-        Has("Flowery Grass") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        Has("Flowery Grass") &
+        HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Eucalyptus Tree":
         Has("Birch Tree") &
-        Has("Butterfly") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        Has("Butterfly") &
+        HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Canopy Tree":
         Has("Lizard") &
         Has("Button Mushroom") &
@@ -1033,7 +1036,7 @@ species_access_rules: dict[str, Rule] = {
             "Ficus Tree",
             "Jungle Flower",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Orange Tree":
         Has("Palm Tree") &
         Has("Flowery Grass") &
@@ -1052,7 +1055,7 @@ species_access_rules: dict[str, Rule] = {
             "Tropical Flower",
             "Bromeliad",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Autumnal Tree":
         Has("Guinea Pig") &
         Has("Birch Tree") &
@@ -1092,7 +1095,7 @@ species_access_rules: dict[str, Rule] = {
         & HasAny(
             "Flowery Grass",
             "Tropical Flower",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Pine Tree":
         Has("Birch Tree") &
         Has("Fir Tree") &
@@ -1107,7 +1110,7 @@ species_access_rules: dict[str, Rule] = {
             "Spruce Tree",
             "Bluebell",
             "Holly Bush",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Witchwood Tree":
         Has("Vine Tree") &
         Has("Butterfly") &
@@ -1119,7 +1122,7 @@ species_access_rules: dict[str, Rule] = {
         )
         & HasAny(
             "Jungle Grass",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Starbloom Bush":
         Has("Jungle Grass") &
         Has("Tall Tree") &
@@ -1242,7 +1245,7 @@ species_access_rules: dict[str, Rule] = {
             "Slimy Tree",
             "Willow Tree",
             "Swamp Grass",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Cherry Tree":
         Has("Pink Tree") &
         Has("Button Mushroom") &
@@ -1274,7 +1277,7 @@ species_access_rules: dict[str, Rule] = {
             "Slimy Tree",
             "Willow Tree",
             "Swamp Grass",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Clown Fish":
         Has("Trout") &
         Has("Seaweed")
@@ -1296,7 +1299,7 @@ species_access_rules: dict[str, Rule] = {
         & HasAny(
             "Flowery Grass",
             "Tropical Flower",
-        ) & HasAny("Sheep", "Chicken", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Desert Hare":
         Has("Guinea Pig") &
         Has("Oak Tree") &
@@ -1339,14 +1342,14 @@ species_access_rules: dict[str, Rule] = {
             "Wild Mint",
             "Tulip",
             count=3
-        ) & HasAny("Sheep", "Chicken", "Trout"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Progressive DP/Min Bonus"),
     "Royal Gramma":
         Has("Trout") &
         Has("Seaweed")
         & HasAny(
             "Rock",
             "Brown Rock",
-        ) & HasAny("Sheep", "Chicken", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Warthog":
         Has("Sheep") &
         Has("Tall Tree") &
@@ -1383,7 +1386,7 @@ species_access_rules: dict[str, Rule] = {
             "Juniper Tree",
             "Acer Tree",
             count=2
-        ) & HasAny("Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Pike":
         Has("Seaweed") &
         Has("Trout") &
@@ -1393,7 +1396,7 @@ species_access_rules: dict[str, Rule] = {
             "Rock",
             "Stones",
             "Brown Rock",
-        ) & HasAny("Sheep", "Chicken", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Eagle":
         Has("Daisy") &
         Has("Birch Tree") &
@@ -1426,7 +1429,7 @@ species_access_rules: dict[str, Rule] = {
             "Spruce Tree",
             "Bluebell",
             "Holly Bush",
-        ) & HasAny("Sheep", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Toad":
         Has("Lizard")
         & HasAny(
@@ -1439,7 +1442,7 @@ species_access_rules: dict[str, Rule] = {
             "Ficus Tree",
             "Jungle Flower",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Toucan":
         Has("Tall Tree") &
         Has("Vine Tree") &
@@ -1502,7 +1505,7 @@ species_access_rules: dict[str, Rule] = {
         & HasAny(
             "Oregano",
             "Buttercup",
-        ) & HasAny("Sheep", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Peacock":
         Has("Daisy") &
         Has("Chicken") &
@@ -1643,7 +1646,7 @@ species_access_rules: dict[str, Rule] = {
             "Brown Stones",
             "Rock",
             "Stones",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Coral":
         Has("Trout") &
         Has("Seaweed") &
@@ -1655,7 +1658,7 @@ species_access_rules: dict[str, Rule] = {
         & HasAny(
             "Tropical Flower",
             "Flowery Grass",
-        ) & HasAny("Sheep", "Chicken", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Marigolds":
         Has("Daisy") &
         Has("Oak Tree") &
@@ -1682,7 +1685,7 @@ species_access_rules: dict[str, Rule] = {
             "Buttercup",
             "Sycamore Tree",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Progressive DP/Min Bonus"),
     "Sunflower":
         Has("Daisy")
         & HasAny(
@@ -1698,7 +1701,7 @@ species_access_rules: dict[str, Rule] = {
             "Buttercup",
             "Sycamore Tree",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Fly Trapper":
         Has("Willow Tree") &
         Has("Swamp Grass") &
@@ -1721,7 +1724,7 @@ species_access_rules: dict[str, Rule] = {
             "Ficus Tree",
             "Jungle Grass",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Large Tree":
         Has("Rosemary") &
         Has("Sheep") &
@@ -1741,7 +1744,7 @@ species_access_rules: dict[str, Rule] = {
             "Brown Stones",
             "Rock",
             "Stones",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Giant Cactus":
         Has("Grass Tuft") &
         Has("Guinea Pig") &
@@ -1792,7 +1795,7 @@ species_access_rules: dict[str, Rule] = {
             "Buttercup",
             "Sycamore Tree",
             count=2
-        ) & HasAny("Sheep", "Chicken", "Trout"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Progressive DP/Min Bonus"),
     "Neon Fish":
         Has("Seaweed") &
         Has("Trout") &
@@ -1805,7 +1808,7 @@ species_access_rules: dict[str, Rule] = {
         & HasAny(
             "Tropical Flower",
             "Flowery Grass",
-        ) & HasAny("Sheep", "Chicken", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Meerkat":
         Has("Desert Rock") &
         Has("Rosemary") &
@@ -1862,7 +1865,7 @@ species_access_rules: dict[str, Rule] = {
             "Daisy",
             "Tulip",
             count=3
-        ) & HasAny("Sheep", "Chicken", "Trout"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Progressive DP/Min Bonus"),
     "Dolphin":
         Has("Trout") &
         Has("Swamp Grass") &
@@ -1877,7 +1880,7 @@ species_access_rules: dict[str, Rule] = {
             "Tropical Flower",
             "Flowery Grass",
         )
-        & HasAny("Sheep", "Chicken", "Guinea Pig"),
+        & HasAny("Sheep", "Chicken", "Guinea Pig", "Progressive DP/Min Bonus"),
 }
 
 
@@ -1901,12 +1904,23 @@ class CanAffordDP(Rule['EquilinoxWorld'], game="Equilinox"):
         def explain_json(self, state: CollectionState | None = None) -> list[JSONMessagePart]:
             can_afford = state and _can_afford_dp(self.world, self.dp, state)
             color = "yellow"
-            start = "You must be "
-            if can_afford:
+            start = "(This text shouldn't be visible) "
+            if can_afford and self.dp <= 10000:
                 start = "Received at least "
                 color = "green"
+            elif can_afford and self.dp <= 60000:
+                start = "Received at least one source of DP/min to afford "
+                color = "green"
+            elif can_afford:
+                start = "Received at least two sources of DP/min to afford "
+                color = "green"
             elif state is not None:
-                start = "Haven't received at least "
+                if self.dp <= 10000:
+                    start = "Haven't received at least "
+                elif self.dp <= 60000:
+                    start = "Haven't received at least one source of DP/min to afford "
+                else:
+                    start = "Haven't received at least two sources of DP/min to afford "
                 color = "salmon"
             return [
                 {"type": "text", "text": start},
@@ -1919,12 +1933,12 @@ class CanAffordDP(Rule['EquilinoxWorld'], game="Equilinox"):
             if state is None:
                 return str(self)
             if _can_afford_dp(self.world, self.dp, state):
-                return f"Received at least {self.dp} DP"
-            return f"Have not received at least {self.dp} DP"
+                return f"Received at least {self.dp} DP (and/or enough to generate it)"
+            return f"Have not received at least {self.dp} DP (and/or enough to generate it)"
 
         @override
         def __str__(self) -> str:
-            return f"Receive at least {self.dp} dp"
+            return f"Receive at least {self.dp} dp (or generators, for higher amounts)"
 
 
         @typing.override
@@ -1935,29 +1949,22 @@ class CanAffordDP(Rule['EquilinoxWorld'], game="Equilinox"):
 def _can_afford_dp(world: EquilinoxWorld, target: int, state: CollectionState) -> bool:
 
     if target > 60000:
-        return state.has_from_list_unique(["Sheep", "Chicken", "Trout", "Guinea Pig"], world.player, 2)
+        return (state.has_from_list_unique(["Sheep", "Chicken", "Trout", "Guinea Pig"], world.player, 2)
+                or state.has("Progressive DP/Min Bonus", world.player, count=5)
+                or (state.has("Progressive DP/Min Bonus", world.player, count=3)
+                    and state.has_any(["Sheep", "Chicken", "Trout", "Guinea Pig"], world.player)))
     elif target > 10000:
-        return state.has_any(["Sheep", "Chicken", "Trout", "Guinea Pig"], world.player)
+        return (state.has_any(["Sheep", "Chicken", "Trout", "Guinea Pig"], world.player)
+                or state.has("Progressive DP/Min Bonus", world.player, count=2))
 
-    padding = 0.8 # Leniency factor. Lower = more forgiving
-    if world.options.tasks_reward_dp.value == 1: padding = 1.0
+    padding = 0.7 # Leniency factor. Lower = more forgiving
+    #if world.options.tasks_reward_dp.value == 1: padding = 1.0
     balance = 2500
     balance += state.count("100,000 dp", world.player) * 100000 * padding
     balance += state.count("75,000 dp", world.player)  *  75000 * padding
     balance += state.count("50,000 dp", world.player)  *  50000 * padding
     balance += state.count("25,000 dp", world.player)  *  25000 * padding
     balance += state.count("10,000 dp", world.player)  *  10000 * padding
-
-    # Account for dp earn per minute by animals.
-    # TODO: make this better...
-
-    max_minutes_to_wait = 15
-    children_factor = 2
-
-    for animal in SpeciesUtils.get_species_from_category("Animals"):
-        if not animal.is_base_species(): continue
-        if state.has(f"{animal.name} Permit", world.player):
-            balance += animal.dp_earn * max_minutes_to_wait * children_factor
 
     return balance >= target
 

@@ -7,7 +7,8 @@ class TasksRewardDP(Toggle):
     """
     Should tasks reward the normal DP amount upon completion.
     If off, some filler DP items are replaced with larger
-    sums of DP to replace the missing task rewards.
+    sums of DP to replace the missing task rewards (if there
+    is space for them in the item pool).
     """
     display_name = "Tasks Reward DP"
     default = True
@@ -24,26 +25,26 @@ class StartingDP(Range):
 
 class DPInItempool(Range):
     """
-    How much DP should be in the itempool? Note, currently the only filler
+    How much DP should be in the item pool? Note, currently the only filler
     item is small amounts of DP, so there will be more than just this much
     in the item pool. This option allows you to force the addition of larger
     DP items to the pool. If 'Tasks Reward DP' is off, some larger DP amounts
     will have already been added. We recommend at least some additional DP,
     since you may receive expensive Species before having a lot of DP earn per minute.
     """
-    display_name = "Additional DP in Itempool"
+    display_name = "Additional DP in Item Pool"
     range_start = 0
     range_end = 500000
     default = 150000
 
 class DPPerMinItemCount(Range):
     """
-    Adds this many 'Progressive DP/Min Bonus' items to the pool. Each one of these received
-    gives an additional 10 dp/min
+    Adds this many 'Progressive DP/Min Bonus' items to the pool. Each one
+    of these received gives an additional 20 dp/min.
     """
     display_name = "DP/Min Bonus Items"
     range_start = 0
-    range_end = 20
+    range_end = 40
     default = 5
 
 class FreeEvolution(Toggle):
@@ -242,6 +243,9 @@ option_presets = {
         "itempool_dp": 150000,
         "size_checks": True,
         "free_evolution": True,
-        "goal_selection": 0
+        "goal_selection": 0,
+        "dp_per_min_bonus_count": 5,
+        "evo_goal_species": ['Camel', 'Giant Cactus'],
+        "evo_goal_count": 0,
     }
 }

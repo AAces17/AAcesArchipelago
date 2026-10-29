@@ -62,7 +62,7 @@ def set_item_names_to_id():
     DEFAULT_ITEM_CLASSIFICATIONS["100,000 dp"] = ItemClassification.progression_skip_balancing | ItemClassification.useful
 
     ITEM_NAME_TO_ID["Progressive DP/Min Bonus"] = 70001
-    DEFAULT_ITEM_CLASSIFICATIONS["Progressive DP/Min Bonus"] = ItemClassification.progression | ItemClassification.useful
+    DEFAULT_ITEM_CLASSIFICATIONS["Progressive DP/Min Bonus"] = ItemClassification.progression
 
     DEFAULT_ITEM_CLASSIFICATIONS["Filler"] = 90001
     DEFAULT_ITEM_CLASSIFICATIONS["Filler"] = ItemClassification.filler
@@ -125,40 +125,46 @@ def approx_money_as_sum(amt: int, max_summands: int, possible_values=None) -> li
 
 def create_all_items(world: EquilinoxWorld) -> None:
     item_pool: list[Item] = [
-        get_nearest_money_item(world, 25000)
+        get_nearest_money_item(world, 50000)
     ]
 
     for unlock in species_unlock_items:
         if unlock == "Grass Tuft Permit": continue
         item_pool.append(world.create_item(unlock))
 
-    if not world.options.tasks_reward_dp:
-        for task in Tasks.all_tasks:
-            item_pool.append(get_nearest_money_item(world, task.cash_reward))
+    dp_bonuses_to_add = min(world.options.dp_per_min_bonus_count.value, missing_item_count(world, item_pool))
 
-    for _ in range(world.options.dp_per_min_bonus_count.value):
+    for _ in range(dp_bonuses_to_add):
         item_pool.append(world.create_item("Progressive DP/Min Bonus"))
 
     dp_in_pool = world.options.itempool_dp.value
     dp_to_add = []
+
+    max_summands = min(7, missing_item_count(world, item_pool))
+
     if dp_in_pool > 100:
         if dp_in_pool > 250000:
-            dp_to_add = [100000, 75000] + approx_money_as_sum(dp_in_pool-175000, 5, possible_values=[50000, 25000, 10000, 7500, 5000, 2500, 1000])
+            dp_to_add = [100000, 75000] + approx_money_as_sum(dp_in_pool-175000, max_summands, possible_values=[50000, 25000, 10000, 7500, 5000, 2500, 1000])
         elif dp_in_pool > 100000:
-            dp_to_add = [75000] + approx_money_as_sum(dp_in_pool-75000, 5, possible_values=[50000, 25000, 10000, 7500, 5000, 2500, 1000])
+            dp_to_add = [75000] + approx_money_as_sum(dp_in_pool-75000, max_summands, possible_values=[50000, 25000, 10000, 7500, 5000, 2500, 1000])
         else:
-            dp_to_add = approx_money_as_sum(dp_in_pool, 6, possible_values=[50000, 25000, 10000, 7500, 5000, 2500, 1000])
+            dp_to_add = approx_money_as_sum(dp_in_pool, max_summands, possible_values=[50000, 25000, 10000, 7500, 5000, 2500, 1000])
 
     for dp in dp_to_add:
         item_pool.append(get_nearest_money_item(world, dp))
 
+    if not world.options.tasks_reward_dp:
+        for task in Tasks.all_tasks:
+            if missing_item_count(world, item_pool) > 0:
+                item_pool.append(get_nearest_money_item(world, task.cash_reward))
 
     # Filler items
-    number_of_items = len(item_pool)
-    number_of_unfilled_locations = len(world.multiworld.get_unfilled_locations(world.player))
-    needed_number_of_filler_items = number_of_unfilled_locations - number_of_items
+    needed_number_of_filler_items = missing_item_count(world, item_pool)
 
     item_pool += [world.create_filler() for _ in range(needed_number_of_filler_items)]
 
 
     world.multiworld.itempool += item_pool
+
+def missing_item_count(world: EquilinoxWorld, item_pool: list[Item]) -> int:
+    return len(world.multiworld.get_unfilled_locations(world.player)) - len(item_pool)
