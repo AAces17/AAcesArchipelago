@@ -390,7 +390,8 @@ species_access_rules: dict[str, Rule] = {
         Has("Button Mushroom")
         & HasAny(
             "Jungle Grass",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus")
+        & HasAny("Vine Tree", "Fir Tree", "Willow Tree"),
     "Jungle Flower":
         Has("Jungle Grass") &
         Has("Vine Tree")
@@ -988,9 +989,7 @@ species_access_rules: dict[str, Rule] = {
         Has("Lizard") &
         Has("Swamp Grass")
         & HasAny(
-            "Brown Stones",
             "Rock",
-            "Stones",
             "Brown Rock",
         )
         & HasAny(
@@ -1752,7 +1751,7 @@ species_access_rules: dict[str, Rule] = {
             "Brown Stones",
             "Rock",
             "Stones",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
+        ) & HasAny("Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Giant Cactus":
         Has("Grass Tuft") &
         Has("Guinea Pig") &
