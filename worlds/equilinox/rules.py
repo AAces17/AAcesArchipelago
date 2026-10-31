@@ -61,6 +61,15 @@ def set_trait_rules(world: EquilinoxWorld) -> None:
                     extra_rule = extra_rule & biome_rule
                 if species.eats != "":
                     extra_rule = extra_rule & CanGetAtLeastOneDiet(species)
+                if species.liked_species != "":
+                    # Make sure that at least one liked species is accessible
+                    reqs = SpeciesUtils.get_required_species_from_string(species.liked_species)
+                    for spec_list in reqs:
+                        if len(spec_list) < 1: continue
+                        liked_rule = False_()
+                        for spec in spec_list:
+                            liked_rule = liked_rule | (Has(spec.name) & CanAffordDP(spec.cost))
+                        extra_rule = extra_rule & liked_rule
 
                 world.set_rule(sizeLoc1, Has(species.name) & CanAffordDP(species.cost + 20000 * species.evolution_stage) & extra_rule)
                 world.set_rule(sizeLoc2, Has(species.name) & CanAffordDP(species.cost + 50000 * species.evolution_stage) & extra_rule)
@@ -70,7 +79,6 @@ def set_evolution_rules(world: EquilinoxWorld) -> None:
         event_loc = world.get_location(f"{species.name} Unlock")
         world.set_rule(event_loc, species_access_rules[species.name])
         if not species.is_base_species():
-            if species.name == "Camel" and world.options.goal_selection == 1: continue
             loc = world.get_location(f"Evolve {species.name}")
             world.set_rule(loc, Has(species.name) & CanAffordDP(species.cost * species.evolution_stage))
 
@@ -125,11 +133,11 @@ def set_task_rules(world: EquilinoxWorld) -> Rule:
                 if requirement.liked_species != "":
                     # Make sure that at least one liked species is accessible
                     reqs = SpeciesUtils.get_required_species_from_string(requirement.liked_species)
-                    extra_rule = False_()
                     for spec_list in reqs:
+                        extra_rule = False_()
                         for spec in spec_list:
                             extra_rule = extra_rule | (Has(spec.name) & CanAffordDP(spec.cost))
-                    rule = rule & extra_rule
+                        rule = rule & extra_rule
 
         for req_list in new_at_least_one_requirements:
             if len(req_list) == 0 or all(s is None for s in req_list):
