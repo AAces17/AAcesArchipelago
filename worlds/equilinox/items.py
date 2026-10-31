@@ -45,24 +45,26 @@ def set_item_names_to_id():
     ITEM_NAME_TO_ID["75,000 dp"] = 80750
 
     ITEM_NAME_TO_ID["100,000 dp"] = 81000
+    ITEM_NAME_TO_ID["250,000 dp"] = 82500
 
     DEFAULT_ITEM_CLASSIFICATIONS["100 dp"] = ItemClassification.filler
     DEFAULT_ITEM_CLASSIFICATIONS["500 dp"] = ItemClassification.filler
 
     DEFAULT_ITEM_CLASSIFICATIONS["1,000 dp"] = ItemClassification.filler
     DEFAULT_ITEM_CLASSIFICATIONS["2,500 dp"] = ItemClassification.filler
-    DEFAULT_ITEM_CLASSIFICATIONS["5,000 dp"] = ItemClassification.filler | ItemClassification.useful
-    DEFAULT_ITEM_CLASSIFICATIONS["7,500 dp"] = ItemClassification.filler | ItemClassification.useful
+    DEFAULT_ITEM_CLASSIFICATIONS["5,000 dp"] = ItemClassification.filler
+    DEFAULT_ITEM_CLASSIFICATIONS["7,500 dp"] = ItemClassification.filler
 
-    DEFAULT_ITEM_CLASSIFICATIONS["10,000 dp"] = ItemClassification.progression
-    DEFAULT_ITEM_CLASSIFICATIONS["25,000 dp"] = ItemClassification.progression
-    DEFAULT_ITEM_CLASSIFICATIONS["50,000 dp"] = ItemClassification.progression_skip_balancing | ItemClassification.useful
-    DEFAULT_ITEM_CLASSIFICATIONS["75,000 dp"] = ItemClassification.progression_skip_balancing | ItemClassification.useful
+    DEFAULT_ITEM_CLASSIFICATIONS["10,000 dp"] = ItemClassification.filler | ItemClassification.useful
+    DEFAULT_ITEM_CLASSIFICATIONS["25,000 dp"] = ItemClassification.filler | ItemClassification.useful
+    DEFAULT_ITEM_CLASSIFICATIONS["50,000 dp"] = ItemClassification.progression
+    DEFAULT_ITEM_CLASSIFICATIONS["75,000 dp"] = ItemClassification.progression
 
     DEFAULT_ITEM_CLASSIFICATIONS["100,000 dp"] = ItemClassification.progression_skip_balancing | ItemClassification.useful
+    DEFAULT_ITEM_CLASSIFICATIONS["250,000 dp"] = ItemClassification.progression_skip_balancing | ItemClassification.useful
 
     ITEM_NAME_TO_ID["Progressive DP/Min Bonus"] = 70001
-    DEFAULT_ITEM_CLASSIFICATIONS["Progressive DP/Min Bonus"] = ItemClassification.progression
+    DEFAULT_ITEM_CLASSIFICATIONS["Progressive DP/Min Bonus"] = ItemClassification.progression | ItemClassification.useful
 
     DEFAULT_ITEM_CLASSIFICATIONS["Filler"] = 90001
     DEFAULT_ITEM_CLASSIFICATIONS["Filler"] = ItemClassification.filler
@@ -73,8 +75,8 @@ class EquilinoxItem(Item):
     game = "Equilinox"
 
 def get_random_filler_item_name(world: EquilinoxWorld) -> str:
-    filler_items = ["100 dp", "500 dp", "1,000 dp", "2,500 dp", "5,000 dp", "7,500 dp", "10,000 dp"]
-    weights =      [ 6,        12,       15,         10,         5,          3,          1         ]
+    filler_items = ["100 dp", "500 dp", "1,000 dp", "2,500 dp", "5,000 dp", "7,500 dp", "10,000 dp", "25,000 dp"]
+    weights =      [ 1,        5,       10,         15,         13,          9,          6,           2         ]
     return world.random.choices(filler_items, weights=weights, k=1)[0]
 
 
@@ -83,8 +85,10 @@ def create_item_with_correct_classification(world: EquilinoxWorld, name: str) ->
     return EquilinoxItem(name, classification, ITEM_NAME_TO_ID[name], world.player)
 
 def get_nearest_money_item(world: EquilinoxWorld, amt: int) -> EquilinoxItem:
-    if amt >= 90000:
-        return world.create_item("100,000 dp") # 90,000 -
+    if amt >= 225000:
+        return world.create_item("250,000 dp") # 225,000+
+    elif amt >= 90000:
+        return world.create_item("100,000 dp") # 90,000 - 225,000
     elif amt >= 65000:
         return world.create_item("75,000 dp")  # 65,000 - 90,000
     elif amt >= 40000:
@@ -109,7 +113,7 @@ def get_nearest_money_item(world: EquilinoxWorld, amt: int) -> EquilinoxItem:
 def approx_money_as_sum(amt: int, max_summands: int, possible_values=None) -> list[int]:
     if amt < 100: return []
     if possible_values is None:
-        possible_values = [100000, 75000, 50000, 25000, 10000, 7500, 5000, 2500, 1000, 500, 100]
+        possible_values = [250000, 100000, 75000, 50000, 25000, 10000, 7500, 5000, 2500, 1000, 500, 100]
     possible_values = sorted(possible_values, reverse=True)
     running_sum = 0
     summands = []
@@ -125,7 +129,7 @@ def approx_money_as_sum(amt: int, max_summands: int, possible_values=None) -> li
 
 def create_all_items(world: EquilinoxWorld) -> None:
     item_pool: list[Item] = [
-        get_nearest_money_item(world, 50000)
+        get_nearest_money_item(world, 100000)
     ]
 
     for unlock in species_unlock_items:
@@ -140,15 +144,17 @@ def create_all_items(world: EquilinoxWorld) -> None:
     dp_in_pool = world.options.itempool_dp.value
     dp_to_add = []
 
-    max_summands = min(7, missing_item_count(world, item_pool))
+    max_summands = min(9, missing_item_count(world, item_pool))
 
     if dp_in_pool > 100:
-        if dp_in_pool > 250000:
-            dp_to_add = [100000, 75000] + approx_money_as_sum(dp_in_pool-175000, max_summands, possible_values=[50000, 25000, 10000, 7500, 5000, 2500, 1000])
+        if dp_in_pool > 400000:
+            dp_to_add = [250000, 100000] + approx_money_as_sum(dp_in_pool-350000, max_summands, possible_values=[75000, 50000, 25000, 10000, 7500, 5000, 2500, 1000])
+        elif dp_in_pool > 250000:
+            dp_to_add = [100000, 75000] + approx_money_as_sum(dp_in_pool-175000, max_summands-2, possible_values=[50000, 25000, 10000, 7500, 5000, 2500, 1000])
         elif dp_in_pool > 100000:
-            dp_to_add = [75000] + approx_money_as_sum(dp_in_pool-75000, max_summands, possible_values=[50000, 25000, 10000, 7500, 5000, 2500, 1000])
+            dp_to_add = [75000] + approx_money_as_sum(dp_in_pool-75000, max_summands-2, possible_values=[50000, 25000, 10000, 7500, 5000, 2500, 1000])
         else:
-            dp_to_add = approx_money_as_sum(dp_in_pool, max_summands, possible_values=[50000, 25000, 10000, 7500, 5000, 2500, 1000])
+            dp_to_add = approx_money_as_sum(dp_in_pool, max_summands-3, possible_values=[50000, 25000, 10000, 7500, 5000, 2500, 1000])
 
     for dp in dp_to_add:
         item_pool.append(get_nearest_money_item(world, dp))

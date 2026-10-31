@@ -1957,16 +1957,9 @@ def _can_afford_dp(world: EquilinoxWorld, target: int, state: CollectionState) -
         return (state.has_any(["Sheep", "Chicken", "Trout", "Guinea Pig"], world.player)
                 or state.has("Progressive DP/Min Bonus", world.player, count=2))
 
-    padding = 0.7 # Leniency factor. Lower = more forgiving
-    #if world.options.tasks_reward_dp.value == 1: padding = 1.0
-    balance = 2500
-    balance += state.count("100,000 dp", world.player) * 100000 * padding
-    balance += state.count("75,000 dp", world.player)  *  75000 * padding
-    balance += state.count("50,000 dp", world.player)  *  50000 * padding
-    balance += state.count("25,000 dp", world.player)  *  25000 * padding
-    balance += state.count("10,000 dp", world.player)  *  10000 * padding
+    return state.has_any(["50,000 dp", "75,000 dp", "100,000 dp", "250,000 dp",
+                          "Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"], world.player)
 
-    return balance >= target
 
 @dataclasses.dataclass()
 class CanAccessBiome(Rule['EquilinoxWorld'], game="Equilinox"):

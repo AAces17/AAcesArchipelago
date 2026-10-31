@@ -20,7 +20,7 @@ class StartingDP(Range):
     """
     display_name = "Starting DP Balance"
     range_start = 2500
-    range_end = 100000
+    range_end = 500000
     default = 5000
 
 class DPInItempool(Range):
@@ -34,8 +34,8 @@ class DPInItempool(Range):
     """
     display_name = "Additional DP in Item Pool"
     range_start = 0
-    range_end = 500000
-    default = 150000
+    range_end = 1000000
+    default = 200000
 
 class DPPerMinItemCount(Range):
     """
