@@ -40,12 +40,17 @@ class DPInItempool(Range):
 class DPPerMinItemCount(Range):
     """
     Adds this many 'Progressive DP/Min Bonus' items to the pool. Each one
-    of these received gives an additional 20 dp/min.
+    of these received gives an increasing amount of additional dp/min. Ex:
+        1 item received => +20 dp/min
+        5 items received => +160 dp/min
+        10 items => +560 dp/min
+        20 items => +2110 dp/min
+        40 items => +8210 dp/min
     """
     display_name = "DP/Min Bonus Items"
     range_start = 0
     range_end = 40
-    default = 5
+    default = 10
 
 class FreeEvolution(Toggle):
     """

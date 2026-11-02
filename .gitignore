@@ -204,3 +204,5 @@ Thumbs.db
 [Dd]esktop.ini
 
 /Worlds/tracker
+worlds/earth/client.py
+*.apworld

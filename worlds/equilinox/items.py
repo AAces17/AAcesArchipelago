@@ -57,10 +57,10 @@ def set_item_names_to_id():
 
     DEFAULT_ITEM_CLASSIFICATIONS["10,000 dp"] = ItemClassification.filler | ItemClassification.useful
     DEFAULT_ITEM_CLASSIFICATIONS["25,000 dp"] = ItemClassification.filler | ItemClassification.useful
-    DEFAULT_ITEM_CLASSIFICATIONS["50,000 dp"] = ItemClassification.progression
-    DEFAULT_ITEM_CLASSIFICATIONS["75,000 dp"] = ItemClassification.progression
+    DEFAULT_ITEM_CLASSIFICATIONS["50,000 dp"] = ItemClassification.progression_deprioritized
+    DEFAULT_ITEM_CLASSIFICATIONS["75,000 dp"] = ItemClassification.progression_deprioritized
 
-    DEFAULT_ITEM_CLASSIFICATIONS["100,000 dp"] = ItemClassification.progression_skip_balancing | ItemClassification.useful
+    DEFAULT_ITEM_CLASSIFICATIONS["100,000 dp"] = ItemClassification.progression_deprioritized_skip_balancing | ItemClassification.useful
     DEFAULT_ITEM_CLASSIFICATIONS["250,000 dp"] = ItemClassification.progression_skip_balancing | ItemClassification.useful
 
     ITEM_NAME_TO_ID["Progressive DP/Min Bonus"] = 70001

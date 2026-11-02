@@ -1957,8 +1957,8 @@ def _can_afford_dp(world: EquilinoxWorld, target: int, state: CollectionState) -
 
     if target > 60000:
         return (state.has_from_list_unique(["Sheep", "Chicken", "Trout", "Guinea Pig"], world.player, 2)
-                or state.has("Progressive DP/Min Bonus", world.player, count=5)
-                or (state.has("Progressive DP/Min Bonus", world.player, count=3)
+                or state.has("Progressive DP/Min Bonus", world.player, count=3)
+                or (state.has("Progressive DP/Min Bonus", world.player, count=2)
                     and state.has_any(["Sheep", "Chicken", "Trout", "Guinea Pig"], world.player)))
     elif target > 10000:
         return (state.has_any(["Sheep", "Chicken", "Trout", "Guinea Pig"], world.player)
