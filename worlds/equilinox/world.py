@@ -3,6 +3,7 @@ from typing import Any
 
 from BaseClasses import CollectionState
 from NetUtils import JSONMessagePart
+from Options import OptionError
 from .rules import _can_afford_dp
 # Imports of base Archipelago modules must be absolute.
 from worlds.AutoWorld import World
@@ -51,7 +52,11 @@ class EquilinoxWorld(World):
     }
 
     def generate_early(self) -> None:
+        if self.options.goal_selection.value == 1 and len(self.options.evo_goal_species.value) == 0:
+            raise OptionError("Equilinox: Evolution Goal Species Requirements list must be nonempty when Evolve Species goal selected.")
+
         self.push_precollected(self.create_item("Grass Tuft Permit"))
+
         starting_dp_values = items.approx_money_as_sum(self.options.starting_dp.value - 2500, 6)
         for amt in starting_dp_values:
             self.push_precollected(items.get_nearest_money_item(self, amt))
