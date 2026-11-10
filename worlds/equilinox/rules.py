@@ -6,10 +6,11 @@ import typing
 from BaseClasses import CollectionState
 from NetUtils import JSONMessagePart
 from rule_builder.options import OptionFilter
-from rule_builder.rules import Has, True_, Rule, False_, CanReachLocation, HasFromListUnique, HasAny, HasGroupUnique
+from rule_builder.rules import Has, True_, Rule, False_, CanReachLocation, HasFromListUnique, HasAny, HasGroupUnique, \
+    HasAll
 from typing import TYPE_CHECKING, override
 
-from . import SpeciesUtils, Tasks, Evolution
+from . import SpeciesUtils, Tasks
 
 if TYPE_CHECKING:
     from .world import EquilinoxWorld
@@ -45,31 +46,11 @@ def set_all_location_rules(world: EquilinoxWorld) -> None:
 def set_trait_rules(world: EquilinoxWorld) -> None:
     for species in SpeciesUtils.all_species:
         if species.name not in SpeciesUtils.rocks_and_stones:
-            if species.name == "Camel" and world.options.goal_selection == 1: continue
             if world.options.size_checks.value == 1:
                 sizeLoc1 = world.get_location(f"Grow a Big {species.name} (Size 1.10)")
                 sizeLoc2 = world.get_location(f"Grow a Huge {species.name} (Size 1.20)")
 
-                extra_rule = True_()
-
-                # TODO: replace with a cleaner Satisfaction fxn
-                suitable_biomes = species.get_suitable_biomes()
-                if len(suitable_biomes) > 0:
-                    biome_rule = False_()
-                    for biome in suitable_biomes:
-                        biome_rule = biome_rule | CanAccessBiome(biome, 50)
-                    extra_rule = extra_rule & biome_rule
-                if species.eats != "":
-                    extra_rule = extra_rule & CanGetAtLeastOneDiet(species)
-                if species.liked_species != "":
-                    # Make sure that at least one liked species is accessible
-                    reqs = SpeciesUtils.get_required_species_from_string(species.liked_species)
-                    for spec_list in reqs:
-                        if len(spec_list) < 1: continue
-                        liked_rule = False_()
-                        for spec in spec_list:
-                            liked_rule = liked_rule | (Has(spec.name) & CanAffordDP(spec.cost))
-                        extra_rule = extra_rule & liked_rule
+                extra_rule = species_satisfaction_rule(species)
 
                 world.set_rule(sizeLoc1, Has(species.name) & CanAffordDP(species.cost + 20000 * species.evolution_stage) & extra_rule)
                 world.set_rule(sizeLoc2, Has(species.name) & CanAffordDP(species.cost + 50000 * species.evolution_stage) & extra_rule)
@@ -121,23 +102,7 @@ def set_task_rules(world: EquilinoxWorld) -> Rule:
             rule = rule & Has(requirement.name) & CanAffordDP(requirement.cost * 3)
             if task.requires_species_satisfaction:
 
-                # TODO: replace with a cleaner Satisfaction fxn
-                suitable_biomes = requirement.get_suitable_biomes()
-                if len(suitable_biomes) > 0:
-                    biome_rule = False_()
-                    for biome in suitable_biomes:
-                        biome_rule = biome_rule | CanAccessBiome(biome, 50)
-                    rule = rule & biome_rule
-                if requirement.eats != "":
-                    rule = rule & CanGetAtLeastOneDiet(requirement)
-                if requirement.liked_species != "":
-                    # Make sure that at least one liked species is accessible
-                    reqs = SpeciesUtils.get_required_species_from_string(requirement.liked_species)
-                    for spec_list in reqs:
-                        extra_rule = False_()
-                        for spec in spec_list:
-                            extra_rule = extra_rule | (Has(spec.name) & CanAffordDP(spec.cost))
-                        rule = rule & extra_rule
+                rule = rule & species_satisfaction_rule(requirement)
 
         for req_list in new_at_least_one_requirements:
             if len(req_list) == 0 or all(s is None for s in req_list):
@@ -147,37 +112,14 @@ def set_task_rules(world: EquilinoxWorld) -> Rule:
                 if species is None: continue
 
                 if task.requires_species_satisfaction:
-                    sat_rule = False_()
-                    suitable_biomes = species.get_suitable_biomes()
-                    found_something = False
-                    if len(suitable_biomes) > 0:
-                        biome_rule = False_()
-                        for biome in suitable_biomes:
-                            biome_rule = biome_rule | CanAccessBiome(biome, 50)
-                        sat_rule = sat_rule & biome_rule
-                        found_something = True
-                    if species.eats != "":
-                        sat_rule = sat_rule & CanGetAtLeastOneDiet(species)
-                        found_something = True
-                    if species.liked_species != "":
-                        # Make sure that at least one liked species is accessible
-                        reqs = SpeciesUtils.get_required_species_from_string(species.liked_species)
-                        extra_rule = False_()
-                        for spec_list in reqs:
-                            for spec in spec_list:
-                                extra_rule = extra_rule | (Has(spec.name) & CanAffordDP(spec.cost))
-                        sat_rule = sat_rule & extra_rule
-                        found_something = True
-                    if not found_something:
-                        sat_rule = True_()
+                    sat_rule = species_satisfaction_rule(species)
                 else:
                     sat_rule = True_()
 
                 can_get_at_least_one_from_list = can_get_at_least_one_from_list | (Has(species.name) & CanAffordDP(species.cost * 3) & sat_rule)
             rule = rule & can_get_at_least_one_from_list
 
-        completionist_rule = completionist_rule & CanReachLocation(f"Complete Task '{task.name}'")
-
+        completionist_rule = completionist_rule & CanReachLocation(f"Complete Task '{task.name}'") # Replace with & rule?
 
         world.set_rule(task_loc, rule)
 
@@ -186,7 +128,29 @@ def set_task_rules(world: EquilinoxWorld) -> Rule:
         world.set_rule(completionist_loc, completionist_rule)
     return completionist_rule
 
+def species_satisfaction_rule(species: SpeciesUtils.Species) -> Rule:
+    can_be_satisfied = True_()
 
+    suitable_biomes = species.get_suitable_biomes()
+    if len(suitable_biomes) > 0:
+        biome_rule = False_()
+        for biome in suitable_biomes:
+            biome_rule = biome_rule | CanAccessBiome(biome, 60)
+        can_be_satisfied = can_be_satisfied & biome_rule
+
+    if species.eats != "":
+        can_be_satisfied = can_be_satisfied & CanGetAtLeastOneDiet(species)
+
+    if species.liked_species != "":
+        reqs = SpeciesUtils.get_required_species_from_string(species.liked_species)
+        for spec_list in reqs:
+            if len(spec_list) < 1: continue
+            extra_rule = False_()
+            for spec in spec_list:
+                extra_rule = extra_rule | (Has(spec.name) & CanAffordDP(spec.cost))
+            can_be_satisfied = can_be_satisfied & extra_rule
+
+    return can_be_satisfied
 
 def set_completion_condition(world: EquilinoxWorld) -> None:
     world.set_completion_rule(Has("Victory"))
@@ -236,7 +200,7 @@ species_access_rules: dict[str, Rule] = {
             "Stones",
         ),
     "Buttercup":
-        Has("Daisy"),
+        Has("Daisy") & Has("Grass Tuft"),
     "Wild Mint":
         Has("Grass Tuft")
         & HasAny(
@@ -273,14 +237,10 @@ species_access_rules: dict[str, Rule] = {
     "Heather":
         Has("Rosemary")
         & HasAny(
-            "Prickly Pear",
-            "Palm Tree",
+             "Palm Tree",
             "Apple Tree",
-            "Wheat",
-            "Tomato Plant",
             "Witchwood Tree",
             "Nut Tree",
-            "Barley",
         )
         & HasAny(
             "Rock",
@@ -299,12 +259,9 @@ species_access_rules: dict[str, Rule] = {
     "Sycamore Tree":
         Has("Oak Tree")
         & HasAny(
-            "Swamp Flower",
-            "Tropical Flower",
             "Primrose",
             "Heather",
             "Daisy",
-            "Jungle Flower",
         )
         & HasAny(
             "Oregano",
@@ -312,7 +269,7 @@ species_access_rules: dict[str, Rule] = {
             "Wild Mint",
         ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Juniper Tree":
-        Has("Tall Tree") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
+        Has("Tall Tree") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
     "Apple Tree":
         Has("Oak Tree")
         & HasAny(
@@ -339,14 +296,10 @@ species_access_rules: dict[str, Rule] = {
         Has("Tall Tree") &
         Has("Rosemary")
         & HasAny(
-            "Prickly Pear",
-            "Palm Tree",
+             "Palm Tree",
             "Apple Tree",
-            "Wheat",
-            "Tomato Plant",
             "Witchwood Tree",
             "Nut Tree",
-            "Barley",
         )
         & HasAny(
             "Rock",
@@ -508,7 +461,13 @@ species_access_rules: dict[str, Rule] = {
             "Flowery Grass",
         ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Banana Tree":
-        Has("Palm Tree") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
+        Has("Palm Tree")
+        & Has("Flowery Grass")
+        & HasAny(
+            "Rock",
+            "Brown Rock",
+        )
+        & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Umbrella Tree":
         Has("Joshua Tree") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Redfish":
@@ -521,14 +480,10 @@ species_access_rules: dict[str, Rule] = {
     "Wild Boar":
         Has("Sheep")
         & HasAny(
-            "Prickly Pear",
-            "Palm Tree",
+             "Palm Tree",
             "Apple Tree",
-            "Wheat",
-            "Tomato Plant",
             "Witchwood Tree",
             "Nut Tree",
-            "Barley",
         )
         & (
             HasFromListUnique(
@@ -573,12 +528,9 @@ species_access_rules: dict[str, Rule] = {
         Has("Oak Tree") &
         Has("Guinea Pig")
         & HasAny(
-            "Swamp Flower",
-            "Tropical Flower",
             "Primrose",
             "Heather",
             "Daisy",
-            "Jungle Flower",
         )
         & HasAny(
             "Oregano",
@@ -604,14 +556,10 @@ species_access_rules: dict[str, Rule] = {
         Has("Tall Tree") &
         Has("Rosemary")
         & HasAny(
-            "Prickly Pear",
             "Palm Tree",
             "Apple Tree",
-            "Wheat",
-            "Tomato Plant",
             "Witchwood Tree",
             "Nut Tree",
-            "Barley",
         )
         & HasAny(
             "Rock",
@@ -625,27 +573,13 @@ species_access_rules: dict[str, Rule] = {
         ) & HasAny("Sheep", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Squirrel":
         Has("Oak Tree") &
-        Has("Daisy") &
         Has("Guinea Pig")
+        & Has("Snap Dragon")
         & HasAny(
             "Oregano",
             "Rosemary",
             "Wild Mint",
-        )
-        & HasAny(
-            "Oregano",
-            "Buttercup",
-        )
-        & HasFromListUnique(
-            "Poppy",
-            "Snap Dragon",
-            "Sycamore Tree",
-            "Oregano",
-            "Buttercup",
-            "Marigolds",
-            "Elm Tree",
-            count=2
-        ),
+        ) & HasAny("Sheep", "Trout", "Chicken", "Progressive DP/Min Bonus"),
     "Deer":
         Has("Tomato Plant") &
         Has("Sheep")
@@ -678,11 +612,10 @@ species_access_rules: dict[str, Rule] = {
         )
         & HasFromListUnique(
             "Jungle Plant",
-            "Jungle Grass",
             "Ficus Tree",
             "Vine Tree",
             "Jungle Flower",
-            count=2
+            count=1
         ),
     "Turtle":
         Has("Seaweed") &
@@ -691,10 +624,6 @@ species_access_rules: dict[str, Rule] = {
         & HasAny(
             "Rock",
             "Brown Rock",
-        )
-        & HasAny(
-            "Tropical Flower",
-            "Flowery Grass",
         ),
     "Fly":
         Has("Willow Tree") &
@@ -704,24 +633,18 @@ species_access_rules: dict[str, Rule] = {
         & HasAny(
             "Rock",
             "Brown Rock",
-        ),
+        ) & HasAny("Sheep", "Trout", "Guinea Pig", "Chicken", "Progressive DP/Min Bonus"),
     "Bee":
-        Has("Daisy") &
         Has("Butterfly")
         & Has("Poppy")
         & HasAny(
             "Oregano",
             "Buttercup",
+        ) & HasAny(
+            "Stones",
+            "Brown Stones",
         )
-        & HasFromListUnique(
-            "Snap Dragon",
-            "Sycamore Tree",
-            "Oregano",
-            "Buttercup",
-            "Marigolds",
-            "Elm Tree",
-            count=1
-        ),
+        & HasAny("Sheep", "Trout", "Guinea Pig", "Chicken", "Progressive DP/Min Bonus"),
     "Wolf":
         Has("Snow Rocks") &
         Has("Fox") & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
@@ -738,7 +661,6 @@ species_access_rules: dict[str, Rule] = {
         Has("Rosemary")
         & HasAny(
             "Tomato Plant",
-            "Barley",
             "Palm Tree",
             "Apple Tree",
             "Witchwood Tree",
@@ -763,19 +685,14 @@ species_access_rules: dict[str, Rule] = {
             "Tropical Flower",
         ),
     "Poppy":
-        Has("Daisy")
-        & HasAny(
-            "Oregano",
-            "Buttercup",
-        )
+        Has("Buttercup")
         & HasFromListUnique(
             "Elm Tree",
             "Oregano",
             "Snap Dragon",
             "Marigolds",
-            "Buttercup",
             "Sycamore Tree",
-            count=2
+            count=1
         ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Lily":
         Has("Daisy")
@@ -786,7 +703,7 @@ species_access_rules: dict[str, Rule] = {
         ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Snap Dragon":
         Has("Guinea Pig") &
-        Has("Daisy"),
+        Has("Buttercup"),
     "Carrot":
         Has("Guinea Pig") &
         Has("Oak Tree") &
@@ -794,41 +711,15 @@ species_access_rules: dict[str, Rule] = {
         & HasAny(
             "Heather",
             "Daisy",
-            "Swamp Flower",
             "Primrose",
-            "Jungle Flower",
-            "Tropical Flower",
-        )
-        & HasAny(
-            "Wild Mint",
-            "Rosemary",
-            "Oregano",
         )
         & HasAny(
             "Wheat",
-            "Grass Tuft",
-        )
-        & HasFromListUnique(
-            "Daisy",
-            "Grass Tuft",
-            "Wheat",
-            "Wild Mint",
-            "Tulip",
-            count=3
+            "Daisy"
         )
         & HasAny(
             "Oregano",
             "Buttercup",
-        )
-        & HasFromListUnique(
-            "Elm Tree",
-            "Oregano",
-            "Snap Dragon",
-            "Poppy",
-            "Marigolds",
-            "Buttercup",
-            "Sycamore Tree",
-            count=2
         ) & HasAny("Sheep", "Chicken", "Trout", "Progressive DP/Min Bonus"),
     "Potato Plant":
         Has("Sheep") &
@@ -846,35 +737,21 @@ species_access_rules: dict[str, Rule] = {
         )
         & HasAny(
             "Brown Stones",
-            "Rock",
             "Stones",
-            "Brown Rock",
         )
-        & HasAny(
-            "Heather",
+        & HasAll(
             "Sage",
-            "Rosemary",
-        )
-        & HasFromListUnique(
-            "Heather",
-            "Sage",
-            "Tall Tree",
-            "Cedar Tree",
-            "Rosemary",
-            "Fern",
-            "Juniper Tree",
             "Acer Tree",
-            count=2
         ) & HasAny("Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Rose":
         Has("Birch Tree") &
         Has("Daisy")
-        & HasAny(
+        & HasAll(
             "Oregano",
             "Buttercup",
-        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig"),
+        ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Holly Bush":
-        Has("Tomato Plant") &
+        Has("Berry Bush") &
         HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Tall Mushroom":
         Has("Button Mushroom")
@@ -897,9 +774,7 @@ species_access_rules: dict[str, Rule] = {
             "Brown Rock",
         ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Nut Tree":
-        Has("Guinea Pig") &
-        Has("Oak Tree") &
-        Has("Daisy")
+        HasAll("Snap Dragon", "Sycamore Tree")
         & HasAny(
             "Wild Mint",
             "Rosemary",
@@ -908,16 +783,6 @@ species_access_rules: dict[str, Rule] = {
         & HasAny(
             "Oregano",
             "Buttercup",
-        )
-        & HasFromListUnique(
-            "Elm Tree",
-            "Oregano",
-            "Snap Dragon",
-            "Poppy",
-            "Marigolds",
-            "Buttercup",
-            "Sycamore Tree",
-            count=2
         ) & HasAny("Sheep", "Chicken", "Trout", "Progressive DP/Min Bonus"),
     "Acer Tree":
         Has("Sheep") &
@@ -1441,6 +1306,16 @@ species_access_rules: dict[str, Rule] = {
         Has("Lizard")
         & HasAny(
             "Jungle Grass",
+        )
+        & Has("Butterfly")
+        & Has("Button Mushroom")
+        & HasAny(
+            "Swamp Flower",
+            "Tropical Flower",
+            "Primrose",
+            "Heather",
+            "Daisy",
+            "Jungle Flower",
         )
         & HasFromListUnique(
             "Jungle Grass",
@@ -1977,7 +1852,7 @@ class CanAccessBiome(Rule['EquilinoxWorld'], game="Equilinox"):
 
     @typing.override
     def _instantiate(self, world: 'EquilinoxWorld') -> Rule.Resolved:
-        if self.percent <= 0: return True_().resolve(world)
+        if self.percent <= 0 or self.biome == "Barren": return True_().resolve(world)
 
         good_spreaders = SpeciesUtils.get_spreaders(self.biome, True)
         has_any_good_spreaders = False_()
@@ -1985,10 +1860,10 @@ class CanAccessBiome(Rule['EquilinoxWorld'], game="Equilinox"):
         for species in good_spreaders:
             has_any_good_spreaders = has_any_good_spreaders | Has(species.name)
 
-        if self.percent > 85:
-            return (has_any_good_spreaders & HasGroupUnique(self.biome, count=3)).resolve(world)
-        if self.percent > 55:
-            return (has_any_good_spreaders & HasGroupUnique(self.biome, count=2)).resolve(world)
+        if self.percent > 80:
+            return (has_any_good_spreaders & HasGroupUnique(f"{self.biome} Spreaders", count=3)).resolve(world)
+        if self.percent > 50:
+            return (has_any_good_spreaders & HasGroupUnique(f"{self.biome} Spreaders", count=2)).resolve(world)
 
         else: return has_any_good_spreaders.resolve(world)
 

@@ -424,8 +424,8 @@ def get_required_species_from_string(string: str) -> list[set[Species]]:
     if string == "" or string is None:
         return []
     required : list[set[Species]] = []
-    species = string.split(";")
-    for species in species:
+    species_list = string.split(";")
+    for species in species_list:
         species = species.split(" (")[0]
         s = get_species_from_name(species)
         if s is not None:
@@ -443,13 +443,15 @@ def get_required_species_from_string(string: str) -> list[set[Species]]:
             assert s is not None
             required.append({s})
             required.append(get_species_from_category("Trees"))
-        elif species == "Nest": #TODO: More
+        elif species == "Nest":
             s = get_species_from_name("Sparrow")
-            t = get_species_from_name("Oak Tree")
+            t1 = get_species_from_name("Oak Tree")
+            t2 = get_species_from_name("Birch Tree")
             assert s is not None
-            assert t is not None
+            assert t1 is not None
+            assert t2 is not None
             required.append({s})
-            required.append({s})
+            required.append({t1, t2})
         else:
             required.append(get_species_from_category(species))
     return required

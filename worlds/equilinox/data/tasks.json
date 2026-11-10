@@ -51,7 +51,7 @@
     "name": "Genetic Modification",
     "repeatable": false,
     "required_species": "Daisy (Light Blue)",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 1000,
     "id": 7
   },
@@ -99,7 +99,7 @@
     "name": "An Apple a Day",
     "repeatable": false,
     "required_species": "Sheep;Apple Tree",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 8500,
     "id": 13
   },
@@ -107,7 +107,7 @@
     "name": "An Apple Every Day",
     "repeatable": true,
     "required_species": "Apple Tree",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 5000,
     "id": 14
   },
@@ -123,7 +123,7 @@
     "name": "A Bird in the Hand",
     "repeatable": false,
     "required_species": "Nest",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 11800,
     "id": 16
   },
@@ -147,7 +147,7 @@
     "name": "Merry Berry",
     "repeatable": false,
     "required_species": "Sheep;Berry Bush",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 7500,
     "id": 19
   },
@@ -171,7 +171,7 @@
     "name": "Rabbit Food",
     "repeatable": false,
     "required_species": "Rabbit;Carrot",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 15000,
     "id": 22
   },
@@ -179,14 +179,14 @@
     "name": "24 Carrot Gold",
     "repeatable": true,
     "required_species": "Rabbit;Carrot (Gold)",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 15000,
     "id": 23
   },
   {
     "name": "Forest Flora and Fauna",
     "repeatable": false,
-    "required_species": "Heather;Fern;Sage;Forest Trees",
+    "required_species": "Heather;Fern;Sage;Cedar Tree;Juniper Tree",
     "requires_species_satisfaction": false,
     "cash_reward": 17000,
     "id": 24
@@ -195,7 +195,7 @@
     "name": "Mountaineering",
     "repeatable": false,
     "required_species": "Goat;Holly Bush",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 35000,
     "id": 25
   },
@@ -203,7 +203,7 @@
     "name": "Totally Nuts!",
     "repeatable": false,
     "required_species": "Squirrel;Nut Tree",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 27500,
     "id": 26
   },
@@ -219,7 +219,7 @@
     "name": "The Tropics",
     "repeatable": false,
     "required_species": "Flowery Grass;Leafy Plant",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 18500,
     "id": 28
   },
@@ -259,7 +259,7 @@
     "name": "Potato Potahto",
     "repeatable": false,
     "required_species": "Wild Boar;Potato Plant",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 28000,
     "id": 33
   },
@@ -283,7 +283,7 @@
     "name": "Catching Butterflies",
     "repeatable": false,
     "required_species": "Frog;Butterfly",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 40000,
     "id": 36
   },
@@ -291,7 +291,7 @@
     "name": "A Turnip for the Books",
     "repeatable": false,
     "required_species": "Warthog;Turnip",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 50000,
     "id": 37
   },
@@ -299,7 +299,7 @@
     "name": "Beavering Away",
     "repeatable": false,
     "required_species": "Beaver Lodge",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 60000,
     "id": 38
   },
@@ -307,7 +307,7 @@
     "name": "Flutter By",
     "repeatable": false,
     "required_species": "Butterfly",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 45000,
     "id": 39
   },
@@ -315,15 +315,15 @@
     "name": "Honey, I'm Home!",
     "repeatable": false,
     "required_species": "Hive",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 75000,
     "id": 40
   },
   {
     "name": "Hungry Turtle",
     "repeatable": false,
-    "required_species": "Turtle;Palm Tree;Seaweed",
-    "requires_species_satisfaction": false,
+    "required_species": "Turtle;Palm Tree;Tropical Seaweed",
+    "requires_species_satisfaction": true,
     "cash_reward": 58000,
     "id": 41
   },
@@ -355,7 +355,7 @@
     "name": "Logger Rhythm",
     "repeatable": true,
     "required_species": "Beaver;Trees",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 50000,
     "id": 45
   },
@@ -371,7 +371,7 @@
     "name": "Butterfly Hunter",
     "repeatable": true,
     "required_species": "Butterfly;Frog",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 18000,
     "id": 47
   },
@@ -395,7 +395,7 @@
     "name": "Digging a Hole",
     "repeatable": true,
     "required_species": "Wild Boar;Potato Plant",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 17500,
     "id": 50
   },
@@ -403,7 +403,7 @@
     "name": "Fox Hunting",
     "repeatable": false,
     "required_species": "Fox;Chicken",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 44000,
     "id": 51
   },
@@ -411,7 +411,7 @@
     "name": "Wolf in Sheep's Clothing",
     "repeatable": false,
     "required_species": "Wolf;Sheep",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 80000,
     "id": 52
   },
@@ -427,7 +427,7 @@
     "name": "Potato Party",
     "repeatable": true,
     "required_species": "Guinea Pig;Potato Plant",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 10000,
     "id": 54
   },
@@ -435,7 +435,7 @@
     "name": "Spitting Image",
     "repeatable": true,
     "required_species": "Camel",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 50000,
     "id": 55
   },
@@ -443,7 +443,7 @@
     "name": "Fish Mastery",
     "repeatable": false,
     "required_species": "Royal Gramma;Neon Fish;Clown Fish;Pike",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 200000,
     "id": 56
   },
@@ -459,7 +459,7 @@
     "name": "It's a Trap!",
     "repeatable": true,
     "required_species": "Fly Trapper;Fly",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 40000,
     "id": 58
   },
@@ -467,7 +467,7 @@
     "name": "Desert Eagle",
     "repeatable": false,
     "required_species": "Eagle;Desert Hare",
-    "requires_species_satisfaction": false,
+    "requires_species_satisfaction": true,
     "cash_reward": 35000,
     "id": 59
   },
