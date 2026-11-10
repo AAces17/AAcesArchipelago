@@ -40,12 +40,16 @@ class DPInItempool(Range):
 class DPPerMinItemCount(Range):
     """
     Adds this many 'Progressive DP/Min Bonus' items to the pool. Each one
-    of these received gives an increasing amount of additional dp/min. Ex:
-        1 item received => +20 dp/min
-        5 items received => +160 dp/min
-        10 items => +560 dp/min
-        20 items => +2110 dp/min
-        40 items => +8210 dp/min
+    of these received gives an increasing amount of additional dp/min.
+    If you've received 'n' of these items, you will have a constant
+    dp/min bonus of 15(n^2 + n).
+    Ex:
+        1 item received => +30 dp/min
+        5 items received => +450 dp/min total
+        10 items received => +1650 dp/min total
+        20 items received => +6300 dp/min total
+        40 items received => +24600 dp/min total
+    These do *not* count towards the 'Cashing In' task.
     """
     display_name = "DP/Min Bonus Items"
     range_start = 0
@@ -200,7 +204,7 @@ class EvolutionGoalCount(Range):
     """
     Does nothing if Goal Condition is not 'Evolve Species'.
     Sets how many of the species selected in 'Evolution Goal Species Requirements'
-    do you need to evolve to complete the goal. Setting this to 0 or a number greater than
+    you need to evolve to complete the goal. Setting this to 0 or a number greater than
     the number of selected species means you will need to evolve *all* of the selected
     species to complete the goal.
     """

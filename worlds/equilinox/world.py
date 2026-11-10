@@ -37,18 +37,64 @@ class EquilinoxWorld(World):
 
     origin_region_name = "Menu"
 
-    # Biome Spreaders - used mostly to simplify some logic
     item_name_groups = {
-        "Grassland": {"Wild Mint", "Grass Tuft", "Daisy", "Tulip", "Wheat", },
-        "Forest": {"Rosemary", "Tall Tree", "Cedar Tree", "Potato Plant", "Sage", "Heather", "Fern", "Acer Tree", "Juniper Tree", },
-        "River Bed": {"Seaweed", "Water Lily", "Kelp", },
-        "Desert": {"Yucca", "Giant Cactus", "Prickly Pear", "Desert Grass", "Medium Cactus", "Small Cactus", },
-        "Snow": {"Holly Bush", "Fir Tree", "Bluebell", "Spruce Tree", },
-        "Jungle": {"Jungle Grass", "Jungle Flower", "Ficus Tree", "Vine Tree", "Jungle Plant", },
-        "Swamp": {"Slimy Tree", "Red Mushroom", "Dead Tree", "Swamp Grass", "Swamp Flower", "Willow Tree", },
-        "Lush": {"Bamboo", "Lush Grass", "Cherry Tree", "Primrose", "Red Tree", "Pink Tree", },
-        "Woodland": {"Elm Tree", "Oregano", "Buttercup", "Poppy", "Snap Dragon", "Marigolds", "Sycamore Tree", },
-        "Tropical": {"Leafy Plant", "Coral", "Bromeliad", "Flowery Grass", "Tropical Flower", "Tropical Seaweed", },
+        "Tier 1 Plant Permits": {
+            "Lush Grass Permit",
+            "Daisy Permit",
+            "Rosemary Permit",
+            "Swamp Grass Permit",
+            "Vine Tree Permit",
+            "Yucca Permit",
+            "Tall Tree Permit",
+            "Birch Tree Permit",
+            "Willow Tree Permit",
+            "Jungle Grass Permit",
+            "Palm Tree Permit",
+            "Seaweed Permit",
+            "Button Mushroom Permit",
+            "Flowery Grass Permit",
+            "Oak Tree Permit",
+            "Fir Tree Permit",
+            "Grass Tuft Permit",
+            "Pink Tree Permit",
+            "Tomato Plant Permit",
+            "Joshua Tree Permit",
+        },
+        "Tier 1 Animal Permits": {
+            "Fox Permit",
+            "Guinea Pig Permit",
+            "Bear Permit",
+            "Chicken Permit",
+            "Jellyfish Permit",
+            "Butterfly Permit",
+            "Sheep Permit",
+            "Lizard Permit",
+            "Trout Permit",
+        },
+        "Stone Permits": {
+            "Stones Permit",
+            "Brown Stones Permit",
+            "Shell Permit"
+        },
+        "Large Rock Permits": {
+            "Rock Permit",
+            "Brown Rock Permit",
+            "Jungle Rocks Permit",
+            "Snow Rocks Permit",
+            "Desert Rocks Permit",
+        },
+
+        # Biome Spreaders - used mostly to simplify some logic
+        "Grassland Spreaders": {"Wild Mint", "Grass Tuft", "Daisy", "Tulip", "Wheat", },
+        "Forest Spreaders": {"Rosemary", "Tall Tree", "Cedar Tree", "Potato Plant", "Sage", "Heather", "Fern", "Acer Tree", "Juniper Tree", },
+        "River Bed Spreaders": {"Seaweed", "Water Lily", "Kelp", },
+        "Desert Spreaders": {"Yucca", "Giant Cactus", "Prickly Pear", "Desert Grass", "Medium Cactus", "Small Cactus", },
+        "Snow Spreaders": {"Holly Bush", "Fir Tree", "Bluebell", "Spruce Tree", },
+        "Jungle Spreaders": {"Jungle Grass", "Jungle Flower", "Ficus Tree", "Vine Tree", "Jungle Plant", },
+        "Swamp Spreaders": {"Slimy Tree", "Red Mushroom", "Dead Tree", "Swamp Grass", "Swamp Flower", "Willow Tree", },
+        "Lush Spreaders": {"Bamboo", "Lush Grass", "Cherry Tree", "Primrose", "Red Tree", "Pink Tree", },
+        "Woodland Spreaders": {"Elm Tree", "Oregano", "Buttercup", "Poppy", "Snap Dragon", "Marigolds", "Sycamore Tree", },
+        "Tropical Spreaders": {"Leafy Plant", "Coral", "Bromeliad", "Flowery Grass", "Tropical Flower", "Tropical Seaweed", },
     }
 
     def generate_early(self) -> None:

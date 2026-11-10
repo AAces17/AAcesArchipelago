@@ -76,7 +76,7 @@ class EquilinoxItem(Item):
 
 def get_random_filler_item_name(world: EquilinoxWorld) -> str:
     filler_items = ["100 dp", "500 dp", "1,000 dp", "2,500 dp", "5,000 dp", "7,500 dp", "10,000 dp", "25,000 dp"]
-    weights =      [ 1,        5,       10,         15,         13,          9,          6,           2         ]
+    weights =      [ 1,        5,       10,         13,         15,          9,          6,           2         ]
     return world.random.choices(filler_items, weights=weights, k=1)[0]
 
 
