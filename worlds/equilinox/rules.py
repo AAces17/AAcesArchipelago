@@ -857,16 +857,22 @@ species_access_rules: dict[str, Rule] = {
             "Rock",
             "Brown Rock",
         )
+        & Has("Jungle Grass")
+        & Has("Butterfly")
+        & Has("Button Mushroom")
         & HasAny(
-            "Jungle Grass",
+            "Tropical Flower",
+            "Primrose",
+            "Heather",
+            "Daisy",
+            "Jungle Flower",
         )
         & HasFromListUnique(
-            "Jungle Grass",
             "Vine Tree",
             "Jungle Plant",
             "Ficus Tree",
             "Jungle Flower",
-            count=2
+            count=1
         ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Bamboo":
         Has("Button Mushroom") &
@@ -898,16 +904,21 @@ species_access_rules: dict[str, Rule] = {
         Has("Lizard") &
         Has("Button Mushroom") &
         Has("Vine Tree")
+        & Has("Jungle Grass")
+        & Has("Butterfly")
         & HasAny(
-            "Jungle Grass",
+            "Tropical Flower",
+            "Primrose",
+            "Heather",
+            "Daisy",
+            "Jungle Flower",
         )
         & HasFromListUnique(
-            "Jungle Grass",
             "Vine Tree",
             "Jungle Plant",
             "Ficus Tree",
             "Jungle Flower",
-            count=2
+            count=1
         ) & HasAny("Sheep", "Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Orange Tree":
         Has("Palm Tree") &
@@ -1041,6 +1052,8 @@ species_access_rules: dict[str, Rule] = {
         Has("Willow Tree") &
         Has("Rosemary") &
         Has("Lizard")
+        & Has("Butterfly")
+        & Has("Button Mushroom")
         & HasAny(
             "Tomato Plant",
             "Barley",
@@ -1070,33 +1083,14 @@ species_access_rules: dict[str, Rule] = {
             "Willow Tree",
             count=2
         )
-        & HasAny(
-            "Heather",
-            "Sage",
-            "Rosemary",
-        )
+        & Has("Heather")
+        & Has("Jungle Grass")
         & HasFromListUnique(
-            "Potato Plant",
-            "Heather",
-            "Sage",
-            "Tall Tree",
-            "Cedar Tree",
-            "Rosemary",
-            "Fern",
-            "Juniper Tree",
-            "Acer Tree",
-            count=2
-        )
-        & HasAny(
-            "Jungle Grass",
-        )
-        & HasFromListUnique(
-            "Jungle Grass",
             "Vine Tree",
             "Jungle Plant",
             "Ficus Tree",
             "Jungle Flower",
-            count=2
+            count=1
         ),
     "Spiral Tree":
         Has("Lizard") &
@@ -1242,23 +1236,8 @@ species_access_rules: dict[str, Rule] = {
             "Stones",
             "Brown Rock",
         )
-        & HasAny(
-            "Heather",
-            "Sage",
-            "Rosemary",
-        )
-        & HasFromListUnique(
-            "Potato Plant",
-            "Heather",
-            "Sage",
-            "Tall Tree",
-            "Cedar Tree",
-            "Rosemary",
-            "Fern",
-            "Juniper Tree",
-            "Acer Tree",
-            count=2
-        ) & HasAny("Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
+        & Has("Heather")
+        & HasAny("Chicken", "Trout", "Guinea Pig", "Progressive DP/Min Bonus"),
     "Pike":
         Has("Seaweed") &
         Has("Trout") &
@@ -1310,7 +1289,6 @@ species_access_rules: dict[str, Rule] = {
         & Has("Butterfly")
         & Has("Button Mushroom")
         & HasAny(
-            "Swamp Flower",
             "Tropical Flower",
             "Primrose",
             "Heather",
