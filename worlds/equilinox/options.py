@@ -253,7 +253,7 @@ option_presets = {
         "size_checks": True,
         "free_evolution": True,
         "goal_selection": 0,
-        "dp_per_min_bonus_count": 5,
+        "dp_per_min_bonus_count": 10,
         "evo_goal_species": ['Camel', 'Giant Cactus'],
         "evo_goal_count": 0,
     }
