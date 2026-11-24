@@ -103,10 +103,11 @@ class EquilinoxWorld(World):
 
         self.push_precollected(self.create_item("Grass Tuft Permit"))
 
-        starting_dp_values = items.approx_money_as_sum(self.options.starting_dp.value - 2500, 6)
+        starting_dp_values = items.approx_money_as_sum(self.options.starting_dp.value - 2500, 10)
+        #print(f"Starting DP: {self.options.starting_dp.value}; giving {starting_dp_values}")
         for amt in starting_dp_values:
             self.push_precollected(items.get_nearest_money_item(self, amt))
-        return
+
 
     def create_regions(self) -> None:
         regions.create_and_connect_regions(self)
